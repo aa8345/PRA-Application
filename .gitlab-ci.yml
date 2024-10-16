@@ -6,12 +6,13 @@ deploy_prod:
   before_script:
     - apt-get update
     - apt-get install -y python3 python3-pip
-    - pip3 install psycopg2
+    - pip3 install mysql-connector-python
 
   script:
     - echo "Deploying files to production environment"
     - rsync -avz ./prod_files/ user@server:/path/to/production/
     
+    # Log the deployed files to the database
     - echo "Logging files to the database"
     - |
       for file in $(git diff --name-only HEAD~1 HEAD); do
